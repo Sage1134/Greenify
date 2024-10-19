@@ -1,0 +1,5 @@
+train: WasteDataset/Images/Train
+val: WasteDataset/Images/Val
+
+nc: 8
+names: [ "DisposableContainers", "Hersheys", "Nestle", "Pepsi", "PlasticBags", "PlasticStraws", "PlasticUtensils", "RedMeats" ]
