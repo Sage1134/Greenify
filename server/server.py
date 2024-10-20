@@ -5,6 +5,7 @@ import base64
 import json
 from ultralytics import YOLO
 from flask_cors import CORS
+import os
 
 model = YOLO("yolov8n.pt")
 
@@ -27,20 +28,30 @@ def return_home():
 
 @app.route("/api/process_frame", methods=['POST'])
 def process_frame():
-    data = request.json
-    image_data = data['image'].split(',')[1]
-    nparr = np.frombuffer(base64.b64decode(image_data), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    # do the logic for adding keypoints to the body
-    _, buffer = cv2.imencode('.png', img)
-    response_image = base64.b64encode(buffer).decode('utf-8')
-    return jsonify({'processed_image': response_image})
+    try:
+        if 'image' not in request.files:
+            app.logger.error('No file part in the request')
+            return 'No file part', 400
+        file = request.files['image']
+        if file.filename == '':
+            app.logger.error('No selected file')
+            return 'No selected file', 400
+        file_path = os.path.join(UPLOAD_FOLDER, 'capture.png')
+        file.save(file_path)
+        
+        detected_classes, advice_list = detectClasses(file_path, "advice.json")
+
+        # Return advice and detected classes as JSON
+        return jsonify({
+            'detected_classes': detected_classes,
+            'advice': advice_list
+        })
+    except Exception as e:
+        app.logger.error(f'Error processing file: {e}')
+        return jsonify({'message': 'Error processing file'}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
-
-
-model = YOLO("yolov8n.pt")
 
 def loadAdvice(adviceFile):
     with open(adviceFile, 'r') as f:
