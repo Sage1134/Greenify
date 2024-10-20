@@ -25,14 +25,28 @@ const Camera = () => {
     if (canvas && video) {
       const context = canvas.getContext('2d');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob((blob) => {
+      canvas.toBlob(async (blob) => {
         const formData = new FormData();
         formData.append('image', blob, 'capture.png');
 
-        fetch('http://localhost:8080/api/process_frame', {
-          method: 'POST',
-          body: formData,
-        });
+        try {
+          const response = await fetch('http://localhost:8080/api/process_frame', {
+            method: 'POST',
+            body: formData,
+          });
+
+          // Check if response is OK
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Error response from server:", errorText);
+            throw new Error(errorText);
+          }
+
+          const result = await response.json(); // Parse the JSON response
+          console.log("Response from server:", result); // Log the result to the console
+        } catch (error) {
+          console.error("Error sending image to backend:", error);
+        }
       }, 'image/png');
     }
   };
