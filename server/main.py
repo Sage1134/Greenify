@@ -1,19 +1,39 @@
+import json
 from ultralytics import YOLO
+
 model = YOLO("yolov8n.pt")
 
-def detect_classes(image_path):
-    results = model.predict(source=image_path, conf=0.5)
+def loadAdvice(adviceFile):
+    with open(adviceFile, 'r') as f:
+        return json.load(f)
 
-    detected_classes = set()
+def detectClasses(imagePath, adviceFile):
+    results = model.predict(source=imagePath, conf=0.5)
+
+    detectedClasses = set()
+    adviceDict = loadAdvice(adviceFile)
+
+    targetClasses = [
+        "bottle",
+        "cup",
+        "fork",
+        "knife",
+        "spoon",
+        "hot dog",
+        "microwave",
+        "oven",
+        "toaster"
+    ]
 
     for result in results:
-        class_indices = result.boxes.cls.int().tolist()
-        class_names = [result.names[i] for i in class_indices]
+        classIndices = result.boxes.cls.int().tolist()
+        classNames = [result.names[i] for i in classIndices]
+        filteredClasses = [name for name in classNames if name in targetClasses]
+        detectedClasses.update(filteredClasses)
 
-        detected_classes.update(class_names)
+    adviceList = [adviceDict[cls] for cls in detectedClasses if cls in adviceDict]
 
-    return list(detected_classes)
+    return [list(detectedClasses), adviceList]
 
-
-detected_classes = detect_classes("server/WasteDataset/Images/Train/image81.png")
-print(detected_classes)
+detectedClasses = detectClasses("server/test.jpg", "advice.json")
+print(detectedClasses)
