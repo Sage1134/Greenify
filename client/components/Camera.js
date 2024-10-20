@@ -1,4 +1,3 @@
-// Camera.js
 import React, { useRef, useEffect } from 'react';
 
 const Camera = () => {
@@ -26,15 +25,15 @@ const Camera = () => {
     if (canvas && video) {
       const context = canvas.getContext('2d');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL('image/png');
-      // Send dataUrl to the back-end
-      fetch('http://localhost:8080/api/process_frame', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image: dataUrl }),
-      });
+      canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append('image', blob, 'capture.png');
+
+        fetch('http://localhost:8080/api/process_frame', {
+          method: 'POST',
+          body: formData,
+        });
+      }, 'image/png');
     }
   };
 
