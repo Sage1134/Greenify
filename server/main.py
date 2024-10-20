@@ -35,5 +35,5 @@ def detectClasses(imagePath, adviceFile):
 
     return [list(detectedClasses), adviceList]
 
-detectedClasses = detectClasses("server/test.jpg", "advice.json")
+detectedClasses = detectClasses("./test.jpg", "./advice.json")
 print(detectedClasses)

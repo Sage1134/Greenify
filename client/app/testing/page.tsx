@@ -6,8 +6,8 @@ export default function Page() {
     const [message, setMessage] = useState("Loading...");
     const [cameraEnabled, setCameraEnabled] = useState(true);
     const [advice, setAdvice] = useState([]);
-    const videoRef = useRef(null);
-    const canvasRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/home")
@@ -26,17 +26,25 @@ export default function Page() {
         const canvas = canvasRef.current;
         const video = videoRef.current;
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0);
+        if (canvas && video) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            if (context) {
+                context.drawImage(video, 0, 0);
+            } else {
+                console.error("Failed to get 2D context from canvas.");
+            }
 
-        // Convert the canvas to a base64 image
-        const imageData = canvas.toDataURL('image/png');
-        sendToBackend(imageData);
+            // Convert the canvas to a base64 image
+            const imageData = canvas.toDataURL('image/png');
+            sendToBackend(imageData);
+        } else {
+            console.error("Canvas or video element is not available.");
+        }
     };
 
-    const sendToBackend = async (imageData) => {
+    const sendToBackend = async (imageData: any) => {
         try {
             const response = await fetch("http://localhost:8080/api/process_frame", {
                 method: 'POST',
