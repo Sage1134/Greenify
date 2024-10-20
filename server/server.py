@@ -28,15 +28,15 @@ def process_frame():
     image_data = data['image'].split(',')[1]
     nparr = np.frombuffer(base64.b64decode(image_data), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    # do the logic for adding keypoints to the body
-    _, buffer = cv2.imencode('.png', img)
-    response_image = base64.b64encode(buffer).decode('utf-8')
-    return jsonify({'processed_image': response_image})
+    
+    detectedClasses, adviceList = detectClasses(img, "advice.json")
+
+    return jsonify({'advice': [detectedClasses, adviceList]})
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
 
-"""
+
 def detectClasses(imagePath, adviceFile):
     results = model.predict(source=imagePath, conf=0.5)
 
@@ -66,4 +66,3 @@ def detectClasses(imagePath, adviceFile):
     return [list(detectedClasses), adviceList]
 
 detectedClasses = detectClasses("server/test.jpg", "advice.json")
-"""
