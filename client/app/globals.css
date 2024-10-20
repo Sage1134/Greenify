@@ -2,3 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+.bg-noise {
+    background: url("/x-bg.svg") lightgray 0% 0%;
+}
+
+.blur-noise {
+    background: radial-gradient(146.33% 79.96% at 30.57% 49.95%, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(132, 255, 138, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(132, 255, 138, 1);
+    }
+}
+
+.box-1, .box-2, .box-3 {
+    border-radius: 15px;
+    border: 1px solid rgba(132, 255, 138, 0.39);
+    box-shadow: 8px 8px 16.1px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2.5px);
+    animation: glow 2s infinite;
+}
+
+.box-1 {
+    background: radial-gradient(211.08% 201.62% at 3.09% 4.34%, rgba(158, 255, 165, 0.74) 0%, rgba(0, 0, 0, 0.74) 100%);
+}
+
+.box-2 {
+    background: radial-gradient(307.42% 193.57% at 0% 0%, rgba(158, 255, 165, 0.74) 0%, rgba(0, 0, 0, 0.74) 100%);
+}
+
+.box-3 {
+    background: radial-gradient(141% 136.18% at 3.09% 4.34%, rgba(158, 255, 165, 0.74) 0%, rgba(0, 0, 0, 0.74) 100%);
+}
