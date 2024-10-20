@@ -35,7 +35,7 @@ export default function Page() {
               <div className='w-[750px] h-[726px] box-1 justify-center items-center flex flex-col gap-y-16'>
                 <p className="text-5xl text-white font-light">"i like mac n cheese"</p>
                 <div className="w-[653px] h-[519px] rounded-xl">
-                  {/* {cameraEnabled && <Camera />} */}
+                  {cameraEnabled && <Camera />}
                 </div>
               </div>
               <div className='box-2 w-[750px] h-[87px]'>

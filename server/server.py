@@ -15,6 +15,9 @@ def loadAdvice(adviceFile):
 app = Flask(__name__)
 CORS(app)
 
+UPLOAD_FOLDER = 'server'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 @app.route("/api/home", methods=['GET'])
 def return_home():
     return jsonify({
@@ -28,14 +31,20 @@ def process_frame():
     image_data = data['image'].split(',')[1]
     nparr = np.frombuffer(base64.b64decode(image_data), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    
-    detectedClasses, adviceList = detectClasses(img, "advice.json")
-
-    return jsonify({'advice': [detectedClasses, adviceList]})
+    # do the logic for adding keypoints to the body
+    _, buffer = cv2.imencode('.png', img)
+    response_image = base64.b64encode(buffer).decode('utf-8')
+    return jsonify({'processed_image': response_image})
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
 
+
+model = YOLO("yolov8n.pt")
+
+def loadAdvice(adviceFile):
+    with open(adviceFile, 'r') as f:
+        return json.load(f)
 
 def detectClasses(imagePath, adviceFile):
     results = model.predict(source=imagePath, conf=0.5)
@@ -66,3 +75,4 @@ def detectClasses(imagePath, adviceFile):
     return [list(detectedClasses), adviceList]
 
 detectedClasses = detectClasses("server/test.jpg", "advice.json")
+print(detectedClasses)
