@@ -49,4 +49,3 @@ Our application scans food items displayed by the user's camera input and perfor
 
 
 
-
