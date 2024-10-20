@@ -48,5 +48,12 @@ Our application scans food items displayed by the user's camera input and perfor
 - Typescript
 
 
+## Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| ![#84FF8A](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAP1BMVEWE/4qD/YmC/4iK84+K9o+H+Y2O85OG+oyN7pKJ9I+R7ZWA+4aD+4mM75GD9YmH942X9JyZ7J2P65Ob6Z+M6ZAJ0E4pAAAA30lEQVR4nO3Uu3LDIBAFULFg9DBItpL//9bIjttULjzKnFMsCzR7hxmGAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOKt41bW8+vhd43VzammLstZLydH6ZSyR6xGr9Jb6o291/PSA75tyvrVpXvMSNW99TFOUOY1LzPl2vV/3879i+4op5hZ7ibZsS+/12A/RI77z0dX06QHftsfeI4+x3+uyTpept5qWutVj98jaz5/w6YixlmsM7dkOcZQUz/N/EvCh/fmn/ABheAQ/j+4dJQAAAABJRU5ErkJggg==) | #84FF8A |
+| ![#000000](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF1kpOekRA86EGoHKcjtvVTcBd6m28OvDgNA&s) |  #000000 |
+| ![#FFFFFF](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvk-ecPeKuRvec5czcoK2H7axiY9XZtcqopQ&s) |  #FFFFFF |
 
 
