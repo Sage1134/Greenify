@@ -6,9 +6,19 @@ import json
 from ultralytics import YOLO
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+# Load the YOLO model
+model = YOLO("yolov8n.pt")
 
+# Function to load advice from a JSON file
+def loadAdvice(adviceFile):
+    with open(adviceFile, 'r') as f:
+        return json.load(f)
+
+# Initialize Flask app
+app = Flask(__name__)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})  # Allow CORS for requests from localhost:3000
+
+# Endpoint for the home route
 @app.route("/api/home", methods=['GET'])
 def return_home():
     return jsonify({
@@ -16,34 +26,28 @@ def return_home():
         'people': ["yang", "name", "another name"]
     })
 
+# Endpoint to process the frame from the frontend
 @app.route("/api/process_frame", methods=['POST'])
 def process_frame():
     data = request.json
-    image_data = data['image'].split(',')[1]
-    nparr = np.frombuffer(base64.b64decode(image_data), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    # do the logic for adding keypoints to the body
-    _, buffer = cv2.imencode('.png', img)
-    response_image = base64.b64encode(buffer).decode('utf-8')
-    return jsonify({'processed_image': response_image})
+    image_data = data['image'].split(',')[1]  # Get the image data from the request
+    nparr = np.frombuffer(base64.b64decode(image_data), np.uint8)  # Decode the base64 image
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)  # Convert it to an OpenCV image
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    # Perform detection and get advice
+    detected_classes, advice_list = detectClasses(img, "advice.json")
 
+    # Return the advice in the specified format
+    return jsonify({'advice': [detected_classes, advice_list]})
 
-model = YOLO("yolov8n.pt")
+# Function to detect classes in the image and retrieve advice
+def detectClasses(img, adviceFile):
+    results = model.predict(source=img, conf=0.5)  # Adjust confidence threshold as needed
+    detected_classes = set()
+    advice_dict = loadAdvice(adviceFile)
 
-def loadAdvice(adviceFile):
-    with open(adviceFile, 'r') as f:
-        return json.load(f)
-
-def detectClasses(imagePath, adviceFile):
-    results = model.predict(source=imagePath, conf=0.5)
-
-    detectedClasses = set()
-    adviceDict = loadAdvice(adviceFile)
-
-    targetClasses = [
+    # Define target classes you are interested in
+    target_classes = [
         "bottle",
         "cup",
         "fork",
@@ -56,14 +60,17 @@ def detectClasses(imagePath, adviceFile):
     ]
 
     for result in results:
-        classIndices = result.boxes.cls.int().tolist()
-        classNames = [result.names[i] for i in classIndices]
-        filteredClasses = [name for name in classNames if name in targetClasses]
-        detectedClasses.update(filteredClasses)
+        class_indices = result.boxes.cls.int().tolist()  # Get class indices
+        class_names = [result.names[i] for i in class_indices]  # Get class names from indices
 
-    adviceList = [adviceDict[cls] for cls in detectedClasses if cls in adviceDict]
+        # Filter detected classes based on target classes
+        filtered_classes = [name for name in class_names if name in target_classes]
+        detected_classes.update(filtered_classes)
 
-    return [list(detectedClasses), adviceList]
+    # Retrieve advice for detected classes
+    advice_list = [advice_dict[cls] for cls in detected_classes if cls in advice_dict]
 
-detectedClasses = detectClasses("server/test.jpg", "advice.json")
-print(detectedClasses)
+    return list(detected_classes), advice_list
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8080)  # Run the Flask app
