@@ -1,0 +1,8 @@
+<svg>
+    <mask>
+        <circle
+            r="100"
+            fill="white"
+        />
+    </mask>
+</svg>

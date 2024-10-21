@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, {useEffect, useState} from 'react';
 import Camera from '@/components/Camera'
 
+
 export default function Home() {
 
   const [message, setMessage] = useState("Loading");

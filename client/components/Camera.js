@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 const Camera = () => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [resultData, setResultData] = useState(null); // New state variable
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -35,27 +37,48 @@ const Camera = () => {
             body: formData,
           });
 
-          // Check if response is OK
           if (!response.ok) {
             const errorText = await response.text();
             console.error("Error response from server:", errorText);
             throw new Error(errorText);
           }
 
-          const result = await response.json(); // Parse the JSON response
-          console.log("Response from server:", result); // Log the result to the console
+          const result = await response.json();
+          console.log("Response from server:", result);
+          setResultData({
+            detected_classes: result.detected_classes,
+            advice: result.advice
+          });// Set the result data
         } catch (error) {
           console.error("Error sending image to backend:", error);
         }
       }, 'image/png');
     }
+    setIsPopupVisible(true);
+  };
+
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
   };
 
   return (
-    <div className=''>
-      <video ref={videoRef} className='rounded-xl'autoPlay style={{ width: '100%' }} />
-      <canvas ref={canvasRef} className='rounded-xl ' style={{ display: 'none' }} />
-      <button onClick={captureFrame} className='bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center'>Click!</button>
+    <div className='z-50'>
+      <video ref={videoRef} className='rounded-xl ' autoPlay style={{ width: '100%' }} />
+      <canvas ref={canvasRef} className='rounded-xl' style={{ display: 'none' }} />
+      <button onClick={captureFrame} className=' bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center'>Click!</button>
+      {isPopupVisible && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
+          <div className='bg-white p-8 rounded-lg mx-96'>
+            <h2 className='text-2xl mb-4 text-black'>Popup Content</h2>
+            {resultData && (
+              <div className='text-black mb-4'>
+                <strong>{resultData.detected_classes}</strong> - {resultData.advice} 
+              </div>
+            )}
+            <button onClick={togglePopup} className='bg-red-500 text-white p-2 rounded'>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

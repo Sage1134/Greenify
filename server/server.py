@@ -47,13 +47,6 @@ CORS(app)
 UPLOAD_FOLDER = 'server'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route("/api/home", methods=['GET'])
-def return_home():
-    return jsonify({
-        'message': "This is actually so freaking cool lmao",
-        'people': ["yang", "name", "another name"]
-    })
-
 @app.route("/api/process_frame", methods=['POST'])
 def process_frame():
     try:

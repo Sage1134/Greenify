@@ -1,0 +1,5 @@
+<svg>
+    <filter id="effect">
+        <feGaussianBlur stdDeviation="40" />
+    </filter>
+</svg>
