@@ -53,8 +53,8 @@ const Camera = () => {
 
   return (
     <div>
-      <video ref={videoRef} autoPlay style={{ width: '100%' }} />
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <video ref={videoRef} className='rounded-xl ' autoPlay style={{ width: '100%' }} />
+      <canvas ref={canvasRef} className='rounded-xl ' style={{ display: 'none' }} />
       <button onClick={captureFrame}>Capture Frame</button>
     </div>
   );
