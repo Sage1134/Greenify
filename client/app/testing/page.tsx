@@ -32,9 +32,8 @@ export default function Page() {
 
           <section className='grid grid-cols-3 justify-center items-center mx-20'>
             <div className='flex flex-col col-span-2 justify-start items-start gap-y-6 w-full'>
-              <div className='w-[750px] h-[726px] box-1 justify-center items-center flex flex-col gap-y-16'>
-                <p className="text-5xl text-white font-light">"i like mac n cheese"</p>
-                <div className="w-[653px] h-[519px] rounded-xl">
+              <div className='w-[750px] h-[689px] box-1 justify-center items-center flex flex-col gap-y-16'>
+                <div className="w-[653px] h-[519px] rounded-xl flex justify-center items-center">
                   {cameraEnabled && <Camera />}
                 </div>
               </div>
@@ -42,7 +41,7 @@ export default function Page() {
               </div>
             </div>
             <div className='flex justify-center items-center'>
-              <div className='box-3 w-[486px] h-[837px]'>
+              <div className='box-3 w-[486px] h-[800px]'>
 
               </div>
             </div>

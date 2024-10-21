@@ -52,10 +52,10 @@ const Camera = () => {
   };
 
   return (
-    <div>
-      <video ref={videoRef} className='rounded-xl ' autoPlay style={{ width: '100%' }} />
+    <div className=''>
+      <video ref={videoRef} className='rounded-xl'autoPlay style={{ width: '100%' }} />
       <canvas ref={canvasRef} className='rounded-xl ' style={{ display: 'none' }} />
-      <button onClick={captureFrame}>Capture Frame</button>
+      <button onClick={captureFrame} className='bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center'>Click!</button>
     </div>
   );
 };

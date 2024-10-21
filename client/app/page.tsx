@@ -39,7 +39,6 @@ export default function Home() {
         {cameraEnabled ? 'Disable Camera' : 'Enable Camera'}
       </button>
       <div className="h-2/6 w-2/6">
-        {cameraEnabled && <Camera />}
       </div>
     </main>
   );
