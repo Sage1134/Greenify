@@ -67,7 +67,7 @@ def process_frame():
         file_path = os.path.join(UPLOAD_FOLDER, 'capture.png')
         file.save(file_path)
         
-        detectedClasses, adviceList = detectClasses(file_path, "server/advice.json")
+        detectedClasses, adviceList = detectClasses(file_path, "advice.json")
         
         app.logger.info(f'File successfully saved to {file_path}')
         
