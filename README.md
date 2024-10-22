@@ -26,12 +26,13 @@ For improvement, we would like to include a point system within the program that
 
 - NextJS
 - Figma 
-- Tailwind CSS
+- CSS
 - YOLO 
 - Python 
 - Javascript 
 - Typescript
-
+- Flask
+- OpenCV
 
 
 
