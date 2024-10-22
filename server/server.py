@@ -14,7 +14,7 @@ def loadAdvice(adviceFile):
         return json.load(f)
 
 def detectClasses(imagePath, adviceFile):
-    results = model.predict(source=imagePath, conf=0.5)
+    results = model.predict(source=imagePath, conf=0.15)
 
     detectedClasses = set()
     adviceDict = loadAdvice(adviceFile)
@@ -60,7 +60,7 @@ def process_frame():
         file_path = os.path.join(UPLOAD_FOLDER, 'capture.png')
         file.save(file_path)
         
-        detectedClasses, adviceList = detectClasses(file_path, "advice.json")
+        detectedClasses, adviceList = detectClasses(file_path, "server/advice.json")
         
         app.logger.info(f'File successfully saved to {file_path}')
         

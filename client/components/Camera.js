@@ -48,8 +48,8 @@ const Camera = () => {
 
           if (result.detected_classes.length === 0 && result.advice.length === 0) {
             setResultData({
-              detected_classes: "All green!",
-              advice: ""
+              detected_classes: ["All green!"],
+              advice: [""]
             });
           } else {
             setResultData({
@@ -57,12 +57,14 @@ const Camera = () => {
               advice: result.advice
             });
           }
+
+          setIsPopupVisible(true);
+
         } catch (error) {
           console.error("Error sending image to backend:", error);
         }
       }, 'image/png');
     }
-    setIsPopupVisible(true);
   };
 
   const togglePopup = () => {
@@ -80,12 +82,14 @@ const Camera = () => {
             <h2 className='text-2xl mb-4 text-black'>Feedback</h2>
             {resultData && (
               <div className='text-black mb-4'>
-                {resultData.detected_classes === "All green!" ? (
+                {resultData.detected_classes[0] === "All green!" ? (
                   <strong>Nice job in choosing to go green! Well done!</strong>
                 ) : (
-                  <div>
-                    <strong>{resultData.detected_classes}</strong> - {resultData.advice}
-                  </div>
+                  resultData.detected_classes.map((topic, index) => (
+                    <div key={index}>
+                      <strong>{topic}</strong> - {resultData.advice[index]}
+                    </div>
+                  ))
                 )}
               </div>
             )}
