@@ -75,7 +75,10 @@ const Camera = () => {
     <div className='z-50'>
       <video ref={videoRef} className='rounded-xl ' autoPlay style={{ width: '100%' }} />
       <canvas ref={canvasRef} className='rounded-xl' style={{ display: 'none' }} />
-      <button onClick={captureFrame} className=' bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center'>Click!</button>
+      <button onClick={captureFrame} className="relative bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center text-white hover:bg-gray-800 active:bg-gray-700 transition-all duration-300 transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        Click!
+        <span className="absolute inset-0 bg-gray-600 opacity-0 transition-opacity duration-300 ease-in-out group-active:opacity-25"></span>
+      </button>
       {isPopupVisible && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
           <div className='bg-white p-8 rounded-lg mx-80'>
