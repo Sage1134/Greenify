@@ -1,15 +1,7 @@
 
 # Greenify
 
-The project is a waste management application that is capable of determining the waste components present in various food items and is thus able to give suggestions on how to mitigate wastage. 
-
-
-## Acknowledgements
-
- - [Yolo Object Detection](https://yolov8.org/)
- - [Awesome README](https://github.com/matiassingers/awesome-readme) //Update for Sage
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project) //Update for Sparky
-
+The project is a waste management application that is capable of determining the waste components present in various food components and is thus able to give suggestions on how to mitigate wastage. 
 
 ## Authors
 
@@ -24,19 +16,12 @@ We wanted to find a solution to help mitigate waste management within the commun
 
 ## What it does
 
-Our application scans food items displayed by the user's camera input and performs an analysis on the object(s) detected, giving vital information on the different types of waste present in the image and a detail explnantion on how the user can limit the waste and help 'Greenify' their meal.  
-## How the application was built
+Our application scans food components displayed by the user's camera input and performs an analysis on the object(s) detected, giving vital information on the different types of waste present in the image and a detail explnantion on how the user can limit the waste and help 'Greenify' their meal.  
 
-//Include stuff here
-## Challenges Faced
-
-//Include stuff here
-## Accomplishment + New Learning Opportunities
-
-//Include stuff here
 ## Next Steps for Greenify
 
-//Include stuff here
+For improvement, we would like to include a point system within the program that is able to reward the user for the amount of waste they were able to reduce, with scaling being done based on algorithms that would be developed with the further implementation. This way, our application would both help inform users about their waste and also encourage users to take action to reduce their waste in order to earn points for the application.
+
 ## Technology Used
 
 - NextJS
@@ -46,6 +31,7 @@ Our application scans food items displayed by the user's camera input and perfor
 - Python 
 - Javascript 
 - Typescript
+
 
 
 
