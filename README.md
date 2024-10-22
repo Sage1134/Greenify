@@ -5,7 +5,7 @@ The project is a waste management application that is capable of determining the
 
 ## Authors
 
-- [@YxngXi1](https://github.com/YxngXi1) (Front-end)
+- [@YxngXi1](https://github.com/YxngXi1) (Full Stack)
 - [@MathGamer2012](https://github.com/MathGamer2012) (Front-end)
 - [@Sage1134](https://github.com/Sage1134) (Back-end)
 - [@adhiv2007](https://github.com/adhiv2007) (Back-end)
