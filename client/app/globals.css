@@ -30,12 +30,13 @@
     }
 }
 
+
 .coolText {
     font-weight: 900;
-    color: #7cff7c; /* Dark Green */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 
-                 4px 4px 8px rgba(0, 0, 0, 0.3), 
-                 6px 6px 12px rgba(0, 0, 0, 0.2);
+    color: #000000; /* Desired text color */
+    -webkit-background-clip: text; /* For WebKit browsers */
+    background-clip: text; /* Clip background to text */
+    mix-blend-mode: overlay; /* Blend the background image with the text color */
     animation: growShrink 6s infinite;
 }
 

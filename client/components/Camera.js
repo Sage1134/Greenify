@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 
 const Camera = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [resultData, setResultData] = useState(null); // New state variable
+  const [resultData, setResultData] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -45,10 +45,18 @@ const Camera = () => {
 
           const result = await response.json();
           console.log("Response from server:", result);
-          setResultData({
-            detected_classes: result.detected_classes,
-            advice: result.advice
-          });// Set the result data
+
+          if (result.detected_classes.length === 0 && result.advice.length === 0) {
+            setResultData({
+              detected_classes: "All green!",
+              advice: ""
+            });
+          } else {
+            setResultData({
+              detected_classes: result.detected_classes,
+              advice: result.advice
+            });
+          }
         } catch (error) {
           console.error("Error sending image to backend:", error);
         }
@@ -68,11 +76,17 @@ const Camera = () => {
       <button onClick={captureFrame} className=' bg-black p-4 rounded-full w-full text-4xl mt-8 flex justify-center items-center text-center'>Click!</button>
       {isPopupVisible && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
-          <div className='bg-white p-8 rounded-lg mx-96'>
-            <h2 className='text-2xl mb-4 text-black'>Popup Content</h2>
+          <div className='bg-white p-8 rounded-lg mx-80'>
+            <h2 className='text-2xl mb-4 text-black'>Feedback</h2>
             {resultData && (
               <div className='text-black mb-4'>
-                <strong>{resultData.detected_classes}</strong> - {resultData.advice} 
+                {resultData.detected_classes === "All green!" ? (
+                  <strong>Nice job in choosing to go green! Well done!</strong>
+                ) : (
+                  <div>
+                    <strong>{resultData.detected_classes}</strong> - {resultData.advice}
+                  </div>
+                )}
               </div>
             )}
             <button onClick={togglePopup} className='bg-red-500 text-white p-2 rounded'>Close</button>
