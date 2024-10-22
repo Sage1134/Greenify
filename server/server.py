@@ -14,7 +14,7 @@ def loadAdvice(adviceFile):
         return json.load(f)
 
 def detectClasses(imagePath, adviceFile):
-    results = model.predict(source=imagePath, conf=0.15)
+    results = model.predict(source=imagePath, conf=0.1)
 
     detectedClasses = set()
     adviceDict = loadAdvice(adviceFile)
