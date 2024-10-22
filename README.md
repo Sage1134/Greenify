@@ -1,7 +1,7 @@
 
 # Greenify
 
-The project is a waste management application that is capable of determining the waste components present in various food items and is thus able to give suggestions on how to mitigate wastage. 
+The project is a waste management application that is capable of determining the waste components present in various food components and is thus able to give suggestions on how to mitigate wastage. 
 
 ## Authors
 
@@ -16,7 +16,7 @@ We wanted to find a solution to help mitigate waste management within the commun
 
 ## What it does
 
-Our application scans food items displayed by the user's camera input and performs an analysis on the object(s) detected, giving vital information on the different types of waste present in the image and a detail explnantion on how the user can limit the waste and help 'Greenify' their meal.  
+Our application scans food components displayed by the user's camera input and performs an analysis on the object(s) detected, giving vital information on the different types of waste present in the image and a detail explnantion on how the user can limit the waste and help 'Greenify' their meal.  
 
 ## Next Steps for Greenify
 
